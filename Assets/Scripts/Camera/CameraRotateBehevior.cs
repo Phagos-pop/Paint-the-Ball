@@ -26,6 +26,10 @@ public class CameraRotateBehevior : ICameraBehavior
 
     public void Update()
     {
+        if (target == null)
+        {
+            return;
+        }
 #if UNITY_EDITOR
         if (Input.GetMouseButton(0))
         {

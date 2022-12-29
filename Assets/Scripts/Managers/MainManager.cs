@@ -7,13 +7,18 @@ public class MainManager : MonoBehaviour
     [SerializeField] private MainBall mainBall;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private UIManager uIManager;
-
-
+    [SerializeField] private BallCounter ballCounter;
 
     void Start()
     {
         uIManager.KickEvent += UIManager_KickEvent;
         inputManager.ClickEvent += InputManager_ClickEvent;
+        ballCounter.BallDeadEvent += BallCounter_BallDeadEvent;
+    }
+
+    private void BallCounter_BallDeadEvent(BallColorType color, int count)
+    {
+        uIManager.AddBallCounter(color, count);
     }
 
     private void InputManager_ClickEvent()
@@ -26,6 +31,9 @@ public class MainManager : MonoBehaviour
         mainBall.KickBall(kickMultiplier);
     }
 
-
-
+    private void OnDestroy()
+    {
+        uIManager.KickEvent -= UIManager_KickEvent;
+        inputManager.ClickEvent -= InputManager_ClickEvent;
+    }
 }

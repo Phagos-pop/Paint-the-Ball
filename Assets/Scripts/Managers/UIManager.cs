@@ -8,6 +8,9 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private Button kickButton;
     [SerializeField] private Image powerBarImage;
+    [SerializeField] private Text redText;
+    [SerializeField] private Text greenText;
+    [SerializeField] private Text yellowText;
 
     private Coroutine powerBarCorotina;
     private bool isKick;
@@ -21,6 +24,22 @@ public class UIManager : MonoBehaviour
         powerBarImage.gameObject.SetActive(false);
     }
 
+    public void AddBallCounter(BallColorType color, int count)
+    {
+        if (color == BallColorType.Red)
+        {
+            redText.text = count.ToString();
+        }
+        if (color == BallColorType.Green)
+        {
+            greenText.text = count.ToString();
+        }
+        if (color == BallColorType.Yellow)
+        {
+            yellowText.text = count.ToString();
+        }
+    }
+
     public void StartKick()
     {
         isKick = true;
@@ -29,7 +48,6 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator PowerBarCouratine()
     {
-        powerBarImage.gameObject.SetActive(true);
         powerBarImage.gameObject.SetActive(true);
         powerBarImage.fillAmount = 0;
         bool increase = true;

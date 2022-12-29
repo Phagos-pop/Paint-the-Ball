@@ -1,23 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public class MainBall : MonoBehaviour
+public class MainBall : Ball
 {
     private Rigidbody _rb;
     private Camera mainCamera;
-    private Renderer renderer;
 
     private void Start()
     {
-        renderer = GetComponent<Renderer>();
+        Init();
         _rb = this.GetComponent<Rigidbody>();
         mainCamera = Camera.main;
-    }
-
-    private void Update()
-    {
-
     }
 
     public void StopBall()
@@ -34,8 +27,14 @@ public class MainBall : MonoBehaviour
         _rb.AddForce(new Vector3(kickVector.x * kickMultiplier, kickVector.y, kickVector.z * kickMultiplier), ForceMode.Impulse);
     }
 
-    public Material GetMaterial()
+    private void OnCollisionEnter(Collision collision)
     {
-        return renderer.material;
+        IBall ball = collision.gameObject.GetComponent<IBall>();
+        ball?.SetMaterial(renderer.material);
+    }
+    public override void DeleteBall()
+    {
+        Debug.Log("Delete Main Ball");
+        base.DeleteBall();
     }
 }

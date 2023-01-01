@@ -5,12 +5,23 @@ public class MainBall : Ball
 {
     private Rigidbody _rb;
     private Camera mainCamera;
+    private Vector3 kickVector;
+    [SerializeField] private float Multipl = 10;
+
+    public TrajectoryRenderer trajectoryRenderer; 
 
     private void Start()
     {
         Init();
         _rb = this.GetComponent<Rigidbody>();
         mainCamera = Camera.main;
+    }
+
+    private void Update()
+    {
+        GetKickVector();
+        trajectoryRenderer.ShowTrajectory(transform.position, kickVector);
+        trajectoryRenderer.SetMaterial(renderer.material.color);
     }
 
     public void StopBall()
@@ -20,10 +31,7 @@ public class MainBall : Ball
 
     public void KickBall(float kickMultiplier)
     {
-        kickMultiplier *= 10;
-        float Y = transform.position.y;
-        Vector3 kickVector = -(mainCamera.transform.position - transform.position);
-        kickVector.y = Y;
+        kickMultiplier *= Multipl;
         _rb.AddForce(new Vector3(kickVector.x * kickMultiplier, kickVector.y, kickVector.z * kickMultiplier), ForceMode.Impulse);
     }
 
@@ -32,6 +40,13 @@ public class MainBall : Ball
         IBall ball = collision.gameObject.GetComponent<IBall>();
         ball?.SetMaterial(renderer.material);
     }
+
+    private void GetKickVector()
+    {
+        kickVector = -(mainCamera.transform.position - transform.position);
+        kickVector.y = transform.position.y;   
+    }
+
     public override void DeleteBall()
     {
         Debug.Log("Delete Main Ball");

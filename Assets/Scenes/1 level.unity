@@ -2599,17 +2599,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 137498a27ea527548a2097fdad94a557, type: 3}
---- !u!114 &1475925150 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1326267539104797167, guid: 39a9d37f41d0f3848850f9a16f46c0f7, type: 3}
-  m_PrefabInstance: {fileID: 8691064508395348071}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df45c28bda38e0c4085daae8e551b71e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1511831755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4083,8 +4072,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 213455424}
   sensitivity: 3
-  up: 3
+  up: 13
   zoom: 7.5
+  xEulerAngles: 50
 --- !u!4 &2143927181
 Transform:
   m_ObjectHideFlags: 0
@@ -4219,10 +4209,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8691064508452565596, guid: 39a9d37f41d0f3848850f9a16f46c0f7, type: 3}
-      propertyPath: trajectoryRenderer
-      value: 
-      objectReference: {fileID: 1475925150}
     - target: {fileID: 8691064508452565597, guid: 39a9d37f41d0f3848850f9a16f46c0f7, type: 3}
       propertyPath: m_Name
       value: Main ball

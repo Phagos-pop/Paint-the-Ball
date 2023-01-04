@@ -7,9 +7,10 @@ public class InputManager : MonoBehaviour
 {
 
     [SerializeField] private Transform target;
-    [SerializeField] private float sensitivity = 3;
-    [SerializeField] private float up = 3;
-    [SerializeField] private float zoom = 7.5f;
+    [SerializeField] private float sensitivity;
+    [SerializeField] private float up;
+    [SerializeField] private float zoom;
+    [SerializeField] private float xEulerAngles;
 
     private CameraSettings cameraSettings;
     private ICameraBehavior currentCameraBehivior;
@@ -42,7 +43,7 @@ public class InputManager : MonoBehaviour
     #region CameraBehavior
     private void InitCameraSettings()
     {
-        cameraSettings = new CameraSettings(sensitivity, up, zoom);
+        cameraSettings = new CameraSettings(sensitivity, up, zoom, xEulerAngles);
     }
 
     private void SetBeheviorByDefult()

@@ -34,20 +34,20 @@ public class CameraRotateBehevior : ICameraBehavior
         if (Input.GetMouseButton(0))
         {
             X = mainCamera.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * currentCameraSettings.sensitivity;
-            mainCamera.transform.localEulerAngles = new Vector3(0f, X, 0f);
+            mainCamera.transform.localEulerAngles = new Vector3(currentCameraSettings.xEulerAngles, X, 0f);
             mainCamera.transform.position = mainCamera.transform.localRotation * offset + target.position;
             mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, target.position.y + currentCameraSettings.up, mainCamera.transform.position.z);
         }
         else
         {
             X = mainCamera.transform.localEulerAngles.y;
-            mainCamera.transform.localEulerAngles = new Vector3(0f, X, 0f);
+            mainCamera.transform.localEulerAngles = new Vector3(currentCameraSettings.xEulerAngles, X, 0f);
             mainCamera.transform.position = mainCamera.transform.localRotation * offset + target.position;
             mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, target.position.y + currentCameraSettings.up, mainCamera.transform.position.z);
         }
 #else
             X = mainCamera.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * currentCameraSettings.sensitivity;
-            mainCamera.transform.localEulerAngles = new Vector3(0f, X, 0f);
+            mainCamera.transform.localEulerAngles = new Vector3(currentCameraSettings.xEulerAngles, X, 0f);
             mainCamera.transform.position = mainCamera.transform.localRotation * offset + target.position;
             mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, target.position.y + currentCameraSettings.up, mainCamera.transform.position.z);
 #endif

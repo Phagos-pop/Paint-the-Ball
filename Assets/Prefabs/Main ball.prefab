@@ -142,6 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df45c28bda38e0c4085daae8e551b71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToRay: 0.2
+  linePointCount: 500
 --- !u!1 &8691064508452565597
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,5 +271,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 0}
-  Multipl: 10
-  trajectoryRenderer: {fileID: 0}
+  Multipl: 15
+  trajectoryRenderer: {fileID: 1326267539104797167}

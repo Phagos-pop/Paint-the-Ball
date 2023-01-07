@@ -9,7 +9,7 @@ public class MainManager : MonoBehaviour
     [SerializeField] private UIManager uIManager;
     [SerializeField] private BallCounter ballCounter;
 
-    void Start()
+    private void Start()
     {
         uIManager.KickEvent += UIManager_KickEvent;
         inputManager.ClickEvent += InputManager_ClickEvent;
@@ -35,5 +35,6 @@ public class MainManager : MonoBehaviour
     {
         uIManager.KickEvent -= UIManager_KickEvent;
         inputManager.ClickEvent -= InputManager_ClickEvent;
+        ballCounter.BallDeadEvent -= BallCounter_BallDeadEvent;
     }
 }

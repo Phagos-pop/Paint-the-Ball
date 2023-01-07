@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GolfHole : MonoBehaviour
 {
-    private Renderer renderer;
+    private new Renderer renderer;
     public event Action<Color> BallDeadEvent;
 
     private void Start()

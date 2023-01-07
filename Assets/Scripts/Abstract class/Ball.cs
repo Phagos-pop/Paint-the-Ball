@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Ball : MonoBehaviour, IBall
 {
-    public Renderer renderer;
+    public new Renderer renderer;
 
     public void Init()
     {

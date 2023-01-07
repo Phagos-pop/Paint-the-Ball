@@ -6,11 +6,10 @@ using System;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private Button kickButton;
     [SerializeField] private Image powerBarImage;
     [SerializeField] private Text redText;
     [SerializeField] private Text greenText;
-    [SerializeField] private Text yellowText;
+    [SerializeField] private Text blueText;
 
     private Coroutine powerBarCorotina;
     private bool isKick;
@@ -34,9 +33,9 @@ public class UIManager : MonoBehaviour
         {
             greenText.text = count.ToString();
         }
-        if (color == BallColorType.Yellow)
+        if (color == BallColorType.Blue)
         {
-            yellowText.text = count.ToString();
+            blueText.text = count.ToString();
         }
     }
 

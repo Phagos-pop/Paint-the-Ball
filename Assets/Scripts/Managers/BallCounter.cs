@@ -8,11 +8,11 @@ public class BallCounter : MonoBehaviour
 {
     [SerializeField] Material redMaterial;
     [SerializeField] Material greenMaterial;
-    [SerializeField] Material yellowMaterial;
+    [SerializeField] Material blueMaterial;
 
     private int redCount;
     private int greenCount;
-    private int yellowCount;
+    private int blueCount;
 
     private List<GolfHole> golfHoles = new List<GolfHole>();
     public event Action<BallColorType,int> BallDeadEvent;
@@ -43,10 +43,10 @@ public class BallCounter : MonoBehaviour
             greenCount++;
             BallDeadEvent?.Invoke(BallColorType.Green,greenCount);
         }
-        else if (color == yellowMaterial.color)
+        else if (color == blueMaterial.color)
         {
-            yellowCount++;
-            BallDeadEvent?.Invoke(BallColorType.Yellow,yellowCount);
+            blueCount++;
+            BallDeadEvent?.Invoke(BallColorType.Blue,blueCount);
         }
     }
 }
@@ -54,6 +54,6 @@ public class BallCounter : MonoBehaviour
 public enum BallColorType
 {
     Red,
-    Yellow,
-    Green
+    Green,
+    Blue
 }

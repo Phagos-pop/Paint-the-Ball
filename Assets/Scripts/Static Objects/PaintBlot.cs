@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PaintBlot : MonoBehaviour
 {
-    private Renderer renderer;
+    private new Renderer renderer;
 
     private void Start()
     {

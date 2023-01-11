@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class MainBall : Ball
 {
+    [SerializeField] private float Multipl = 10;
+
     private Rigidbody _rb;
     private Camera mainCamera;
     private Vector3 kickVector;
-    [SerializeField] private float Multipl = 10;
+
 
     public TrajectoryRenderer trajectoryRenderer; 
 
@@ -21,7 +23,7 @@ public class MainBall : Ball
     {
         GetKickVector();
         trajectoryRenderer.ShowTrajectory(transform.position, kickVector);
-        trajectoryRenderer.SetMaterial(renderer.material.color);
+        trajectoryRenderer.SetColor(renderer.material.color);
     }
 
     public void StopBall()

@@ -13,8 +13,14 @@ public class UIManager : MonoBehaviour
 
     private Coroutine powerBarCorotina;
     private bool isKick;
+    private Camera mainCamera;
 
     public event Action<float> KickEvent;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     public void Kick()
     {

@@ -38,7 +38,7 @@ public class TrajectoryRenderer : MonoBehaviour
         lineRenderer.SetPositions(points);
     }
 
-    public void SetMaterial(Color color)
+    public void SetColor(Color color)
     {
         lineRenderer.endColor = color;
     }

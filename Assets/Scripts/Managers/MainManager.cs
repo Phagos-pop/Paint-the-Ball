@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainManager : MonoBehaviour
 {
@@ -11,9 +12,22 @@ public class MainManager : MonoBehaviour
 
     private void Start()
     {
+        uIManager.RestartEvent += UIManager_RestartEvent;
         uIManager.KickEvent += UIManager_KickEvent;
         inputManager.ClickEvent += InputManager_ClickEvent;
         ballCounter.BallDeadEvent += BallCounter_BallDeadEvent;
+        mainBall.DeathEvent += MainBall_DeathEvent;
+    }
+
+    private void UIManager_RestartEvent()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void MainBall_DeathEvent()
+    {
+        uIManager.ShowRestartButton();
+        mainBall = null;
     }
 
     private void BallCounter_BallDeadEvent(BallColorType color, int count)
@@ -23,6 +37,7 @@ public class MainManager : MonoBehaviour
 
     private void InputManager_ClickEvent()
     {
+        if(mainBall != null)
         mainBall.StopBall();
     }
 

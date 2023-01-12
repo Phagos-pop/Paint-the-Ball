@@ -1,4 +1,4 @@
-
+using System;
 using UnityEngine;
 
 public class MainBall : Ball
@@ -9,8 +9,10 @@ public class MainBall : Ball
     private Camera mainCamera;
     private Vector3 kickVector;
 
+    public TrajectoryRenderer trajectoryRenderer;
 
-    public TrajectoryRenderer trajectoryRenderer; 
+    public event Action DeathEvent;
+    
 
     private void Start()
     {
@@ -51,7 +53,7 @@ public class MainBall : Ball
 
     public override void DeleteBall()
     {
-        Debug.Log("Delete Main Ball");
+        DeathEvent?.Invoke();
         base.DeleteBall();
     }
 }

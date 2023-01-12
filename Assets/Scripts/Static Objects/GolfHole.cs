@@ -12,6 +12,14 @@ public class GolfHole : MonoBehaviour
         renderer = this.GetComponent<Renderer>();
     }
 
+    private void Update()
+    {
+        //float x = transform.position.x;
+        //float y = Mathf.Sin(Time.time) + 2f;
+        //float z = transform.position.z;
+        //transform.position = new Vector3(x, y, z);
+    }
+
     private void OnTriggerEnter(Collider collision)
     {
         IBall ball = collision.gameObject.GetComponent<IBall>();

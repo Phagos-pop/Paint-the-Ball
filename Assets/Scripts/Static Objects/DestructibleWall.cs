@@ -26,7 +26,7 @@ public class DestructibleWall : MonoBehaviour
         }
 
         inpulseToDestoy -= magnitude;
-        if (inpulseToDestoy < 0)
+        if (inpulseToDestoy < 0) // npulseToDestoy < 0 ball.MaterialComparison(renderer.material)
         {
             Destroy(this.gameObject);
             Debug.Log("Wall destroyed");

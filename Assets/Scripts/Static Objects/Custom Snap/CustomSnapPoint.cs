@@ -26,6 +26,6 @@ public class CustomSnapPoint : MonoBehaviour
                 break;
         }
 
-        Gizmos.DrawSphere(transform.position, 1f);
+        Gizmos.DrawSphere(transform.position, 0.5f);
     }
 }

@@ -6,20 +6,33 @@ using System;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private Button restartButton;
     [SerializeField] private Image powerBarImage;
     [SerializeField] private Text redText;
     [SerializeField] private Text greenText;
     [SerializeField] private Text blueText;
+    [SerializeField] private float timeToChangePowerBar;
 
     private Coroutine powerBarCorotina;
     private bool isKick;
     private Camera mainCamera;
 
     public event Action<float> KickEvent;
+    public event Action RestartEvent;
 
     private void Start()
     {
         mainCamera = Camera.main;
+    }
+
+    public void Restart()
+    {
+        RestartEvent?.Invoke();
+    }
+
+    public void ShowRestartButton()
+    {
+        restartButton.gameObject.SetActive(true);
     }
 
     public void Kick()
@@ -58,7 +71,7 @@ public class UIManager : MonoBehaviour
         bool increase = true;
         while (isKick)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(timeToChangePowerBar);
 
             if (powerBarImage.fillAmount > 0.95)
             {

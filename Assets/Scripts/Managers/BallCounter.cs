@@ -31,6 +31,14 @@ public class BallCounter : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        foreach (var golfHole in golfHoles)
+        {
+            golfHole.BallDeadEvent -= GolfHole_BallDeadEvent;
+        }
+    }
+
     private void GolfHole_BallDeadEvent(Color color)
     {
         if (color == redMaterial.color)

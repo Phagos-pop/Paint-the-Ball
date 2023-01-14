@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class GolfHole : MonoBehaviour
 {
+    [SerializeField] private ColorWall colorWall;
+
     private new Renderer renderer;
     public event Action<Color> BallDeadEvent;
+
 
     private void Start()
     {
         renderer = this.GetComponent<Renderer>();
+        if (colorWall != null)
+        {
+            colorWall.Init(renderer.material.color);
+        }
     }
 
     private void Update()
@@ -29,7 +36,8 @@ public class GolfHole : MonoBehaviour
         }
         if (ball.MaterialComparison(renderer.material))
         {
-            BallDeadEvent?.Invoke(ball.GetMaterial().color);
+            //BallDeadEvent?.Invoke(ball.GetMaterial().color);
+            colorWall.Open();
             ball.DeleteBall();
         }
     }

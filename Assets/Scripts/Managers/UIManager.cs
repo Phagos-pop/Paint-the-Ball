@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text redText;
     [SerializeField] private Text greenText;
     [SerializeField] private Text blueText;
+    [SerializeField] private Text StarCount;
     [SerializeField] private float timeToChangePowerBar;
 
     private Coroutine powerBarCorotina;
@@ -28,6 +29,15 @@ public class UIManager : MonoBehaviour
     public void Restart()
     {
         RestartEvent?.Invoke();
+    }
+
+    public void SetStarCount(int countOfStar)
+    {
+        StarCount.text = "Star Left: " + countOfStar.ToString();
+        if (countOfStar == 0)
+        {
+            ShowRestartButton();
+        }
     }
 
     public void ShowRestartButton()

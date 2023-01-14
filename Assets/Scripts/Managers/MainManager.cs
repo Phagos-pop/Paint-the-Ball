@@ -9,14 +9,31 @@ public class MainManager : MonoBehaviour
     [SerializeField] private InputManager inputManager;
     [SerializeField] private UIManager uIManager;
     [SerializeField] private BallCounter ballCounter;
+    [SerializeField] private StarCounter starCounter;
 
-    private void Start()
+    private void OnEnable()
     {
         uIManager.RestartEvent += UIManager_RestartEvent;
         uIManager.KickEvent += UIManager_KickEvent;
         inputManager.ClickEvent += InputManager_ClickEvent;
         ballCounter.BallDeadEvent += BallCounter_BallDeadEvent;
         mainBall.DeathEvent += MainBall_DeathEvent;
+        starCounter.SetStarCountEvent += StarCounter_SetStarCountEvent;
+    }
+
+    private void Start()
+    {
+        //uIManager.RestartEvent += UIManager_RestartEvent;
+        //uIManager.KickEvent += UIManager_KickEvent;
+        //inputManager.ClickEvent += InputManager_ClickEvent;
+        //ballCounter.BallDeadEvent += BallCounter_BallDeadEvent;
+        //mainBall.DeathEvent += MainBall_DeathEvent;
+        //starCounter.SetStarCountEvent += StarCounter_SetStarCountEvent;
+    }
+
+    private void StarCounter_SetStarCountEvent(int count)
+    {
+        uIManager.SetStarCount(count);
     }
 
     private void UIManager_RestartEvent()
@@ -48,8 +65,11 @@ public class MainManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        uIManager.RestartEvent -= UIManager_RestartEvent;
         uIManager.KickEvent -= UIManager_KickEvent;
         inputManager.ClickEvent -= InputManager_ClickEvent;
         ballCounter.BallDeadEvent -= BallCounter_BallDeadEvent;
+        mainBall.DeathEvent -= MainBall_DeathEvent;
+        starCounter.SetStarCountEvent -= StarCounter_SetStarCountEvent;
     }
 }

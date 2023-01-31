@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class StarPointer : MonoBehaviour
 {
+    [SerializeField] private Transform iconTransform;
+
     private Transform mainBallTranform;
     private Camera mainCamera;
-    [SerializeField] private Transform iconTransform;
+    private Plane[] planes;
 
     private void Start()
     {
@@ -19,9 +21,7 @@ public class StarPointer : MonoBehaviour
         Vector3 fromMainBallToStar = this.transform.position - mainBallTranform.position;
         Ray ray = new Ray(mainBallTranform.position, fromMainBallToStar);
 
-        Debug.DrawRay(mainBallTranform.position, fromMainBallToStar);
-
-        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(mainCamera);
+        planes = GeometryUtility.CalculateFrustumPlanes(mainCamera);
 
         float minDistance = float.MaxValue;
 

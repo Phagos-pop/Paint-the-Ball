@@ -26,7 +26,7 @@ public class DestructibleWall : MonoBehaviour
         }
 
         inpulseToDestoy -= magnitude;
-        if (inpulseToDestoy < 0) // npulseToDestoy < 0 ball.MaterialComparison(renderer.material)
+        if (inpulseToDestoy < 0)
         {
             Destroy(this.gameObject);
             Debug.Log("Wall destroyed");
@@ -38,7 +38,6 @@ public class DestructibleWall : MonoBehaviour
         float colorminus = magnitude / initialInpulseToDestoy;
         Color newColor = Color.Lerp(renderer.material.color, color, colorminus);
 
-        //Debug.Log($"old color {renderer.material.color}; new color {newColor}; magnitude {magnitude}; colorminus  {colorminus}");
         renderer.material.color = newColor;
     }
 }

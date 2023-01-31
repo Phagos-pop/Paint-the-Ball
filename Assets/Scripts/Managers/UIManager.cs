@@ -29,11 +29,6 @@ public class UIManager : MonoBehaviour
         panelTranform = PanelGameObj.GetComponent<RectTransform>();
     }
 
-    private void Update()
-    {
-
-    }
-
     private void OnEnable()
     {
         restartButton.onClick.AddListener(Restart);

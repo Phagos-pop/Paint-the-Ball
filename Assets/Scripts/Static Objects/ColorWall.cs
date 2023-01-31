@@ -19,7 +19,6 @@ public class ColorWall : MonoBehaviour
     {
         if (!isOpen)
         {
-            Debug.Log($"Open wall ");
             transform.position = new Vector3(transform.position.x, transform.localScale.y + transform.position.y, transform.position.z);
         }
     }

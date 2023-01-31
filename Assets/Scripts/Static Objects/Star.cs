@@ -15,7 +15,6 @@ public class Star : MonoBehaviour
             return;
         }
 
-        Debug.Log("new star");
         FindStarEvent?.Invoke();
         Destroy(this.gameObject);
     }

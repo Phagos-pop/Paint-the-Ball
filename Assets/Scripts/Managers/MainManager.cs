@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,14 +20,14 @@ public class MainManager : MonoBehaviour
         starCounter.SetStarCountEvent += StarCounter_SetStarCountEvent;
     }
 
-    private void Start()
+    private void OnDisable()
     {
-        //uIManager.RestartEvent += UIManager_RestartEvent;
-        //uIManager.KickEvent += UIManager_KickEvent;
-        //inputManager.ClickEvent += InputManager_ClickEvent;
-        //ballCounter.BallDeadEvent += BallCounter_BallDeadEvent;
-        //mainBall.DeathEvent += MainBall_DeathEvent;
-        //starCounter.SetStarCountEvent += StarCounter_SetStarCountEvent;
+        uIManager.RestartEvent -= UIManager_RestartEvent;
+        uIManager.KickEvent -= UIManager_KickEvent;
+        inputManager.ClickEvent -= InputManager_ClickEvent;
+        ballCounter.BallDeadEvent -= BallCounter_BallDeadEvent;
+        mainBall.DeathEvent -= MainBall_DeathEvent;
+        starCounter.SetStarCountEvent -= StarCounter_SetStarCountEvent;
     }
 
     private void StarCounter_SetStarCountEvent(int count)
@@ -61,15 +60,5 @@ public class MainManager : MonoBehaviour
     private void UIManager_KickEvent(float kickMultiplier)
     {
         mainBall.KickBall(kickMultiplier);
-    }
-
-    private void OnDestroy()
-    {
-        uIManager.RestartEvent -= UIManager_RestartEvent;
-        uIManager.KickEvent -= UIManager_KickEvent;
-        inputManager.ClickEvent -= InputManager_ClickEvent;
-        ballCounter.BallDeadEvent -= BallCounter_BallDeadEvent;
-        mainBall.DeathEvent -= MainBall_DeathEvent;
-        starCounter.SetStarCountEvent -= StarCounter_SetStarCountEvent;
     }
 }

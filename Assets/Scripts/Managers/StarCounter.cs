@@ -10,7 +10,8 @@ public class StarCounter : MonoBehaviour
     private List<Star> stars;
     private int countOfStar;
 
-    public event Action<int> SetStarCountEvent; 
+    public event Action<int> SetStarCountEvent;
+    public event Action AllStarsCountedEvent;
 
     void Start()
     {
@@ -28,5 +29,9 @@ public class StarCounter : MonoBehaviour
     {
         countOfStar--;
         SetStarCountEvent?.Invoke(countOfStar);
+        if (countOfStar == 0)
+        {
+            AllStarsCountedEvent?.Invoke();
+        }
     }
 }

@@ -31,6 +31,7 @@ public class MainBall : Ball
     public void StopBall()
     {
         _rb.Sleep();
+        _rb.WakeUp();
     }
 
     public void KickBall(float kickMultiplier)

@@ -21,6 +21,7 @@ public class GolfHole : MonoBehaviour
 
     private void Update()
     {
+        //TODO 
         //float x = transform.position.x;
         //float y = Mathf.Sin(Time.time) + 2f;
         //float z = transform.position.z;
@@ -36,8 +37,11 @@ public class GolfHole : MonoBehaviour
         }
         if (ball.MaterialComparison(renderer.material))
         {
-            //BallDeadEvent?.Invoke(ball.GetMaterial().color);
-            colorWall.Open();
+            BallDeadEvent?.Invoke(ball.GetMaterial().color);
+            if (colorWall != null)
+            {
+                colorWall.Open();
+            }
             ball.DeleteBall();
         }
     }

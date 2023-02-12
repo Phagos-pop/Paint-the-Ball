@@ -5,6 +5,8 @@ using UnityEngine;
 public class GolfHole : MonoBehaviour
 {
     [SerializeField] private ColorWall colorWall;
+    [SerializeField] private int countToAction;
+    [SerializeField] private GolgHoleNumber holeNumber;
 
     private new Renderer renderer;
     public event Action<Color> BallDeadEvent;
@@ -17,15 +19,7 @@ public class GolfHole : MonoBehaviour
         {
             colorWall.Init(renderer.material.color);
         }
-    }
-
-    private void Update()
-    {
-        //TODO 
-        //float x = transform.position.x;
-        //float y = Mathf.Sin(Time.time) + 2f;
-        //float z = transform.position.z;
-        //transform.position = new Vector3(x, y, z);
+        holeNumber.SetNumber(countToAction, renderer.material);
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -37,8 +31,14 @@ public class GolfHole : MonoBehaviour
         }
         if (ball.MaterialComparison(renderer.material))
         {
+            if (countToAction == 0)
+            {
+                return;
+            }
+            countToAction--;
+            holeNumber.SetNumber(countToAction, renderer.material);
             BallDeadEvent?.Invoke(ball.GetMaterial().color);
-            if (colorWall != null)
+            if (colorWall != null && countToAction == 0)
             {
                 colorWall.Open();
             }

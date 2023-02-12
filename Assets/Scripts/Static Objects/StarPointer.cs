@@ -18,6 +18,10 @@ public class StarPointer : MonoBehaviour
 
     private void Update()
     {
+        if (mainBallTranform == null)
+        {
+            return;
+        }
         Vector3 fromMainBallToStar = this.transform.position - mainBallTranform.position;
         Ray ray = new Ray(mainBallTranform.position, fromMainBallToStar);
 

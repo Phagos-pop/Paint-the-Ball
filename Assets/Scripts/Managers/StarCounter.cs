@@ -7,7 +7,7 @@ using System;
 
 public class StarCounter : MonoBehaviour
 {
-    private List<Star> stars;
+    private List<Star> starList;
     private int countOfStar;
 
     public event Action<int> SetStarCountEvent;
@@ -15,13 +15,13 @@ public class StarCounter : MonoBehaviour
 
     void Start()
     {
-        stars = FindObjectsOfType<Star>().ToList();
-        foreach (var star in stars)
+        starList = FindObjectsOfType<Star>().ToList();
+        foreach (var star in starList)
         {
             star.FindStarEvent += Star_FindStarEvent;
         }
 
-        countOfStar = stars.Capacity;
+        countOfStar = starList.Capacity;
         SetStarCountEvent?.Invoke(countOfStar);
     }
 

@@ -26,7 +26,8 @@ public class MainManager : MonoBehaviour
         uIManager.KickEvent -= UIManager_KickEvent;
         inputManager.ClickEvent -= InputManager_ClickEvent;
         ballCounter.BallDeadEvent -= BallCounter_BallDeadEvent;
-        mainBall.DeathEvent -= MainBall_DeathEvent;
+        if (mainBall != null)
+            mainBall.DeathEvent -= MainBall_DeathEvent;
         starCounter.SetStarCountEvent -= StarCounter_SetStarCountEvent;
     }
 
@@ -43,22 +44,25 @@ public class MainManager : MonoBehaviour
     private void MainBall_DeathEvent()
     {
         uIManager.ShowRestartButton();
+        mainBall.DeathEvent -= MainBall_DeathEvent;
         mainBall = null;
+        uIManager.EndPowerBarAction();
     }
 
     private void BallCounter_BallDeadEvent(BallColorType color, int count)
     {
-        uIManager.AddBallCounter(color, count);
+        //uIManager.AddBallCounter(color, count);
     }
 
     private void InputManager_ClickEvent()
     {
         if(mainBall != null)
-        mainBall.StopBall();
+            mainBall.StopBall();
     }
 
     private void UIManager_KickEvent(float kickMultiplier)
     {
-        mainBall.KickBall(kickMultiplier);
+        if (mainBall != null)
+            mainBall.KickBall(kickMultiplier);
     }
 }

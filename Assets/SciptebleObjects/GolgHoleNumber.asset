@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f239adde7515969498e7b070ed79daf5, type: 3}
+  m_Name: GolgHoleNumber
+  m_EditorClassIdentifier: 
+  Numbers:
+  - {fileID: 2306315782971292870, guid: 1a0c9f30e763f464e80fda85a7f2db39, type: 3}
+  - {fileID: 5547041685116657649, guid: 18e91aa2ab156f842b659a65a3523215, type: 3}
+  - {fileID: 5064660920035101009, guid: e2df7e596c6d59e40a43acd23c43704d, type: 3}
+  - {fileID: 1522332059394790985, guid: 338fd8aba113a284387275c8155af7e6, type: 3}

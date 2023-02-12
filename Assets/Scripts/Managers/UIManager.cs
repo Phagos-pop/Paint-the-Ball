@@ -9,30 +9,33 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private Button restartButton;
     [SerializeField] private Image powerBarImage;
-    //[SerializeField] private Text redText;
-    //[SerializeField] private Text greenText;
-    //[SerializeField] private Text blueText;
     [SerializeField] private Text StarCount;
     [SerializeField] private float timeToChangePowerBar;
     [SerializeField] private GameObject PanelGameObj;
-    private EventTrigger PanelTrigger;
 
-    private Coroutine powerBarCorotina;
-    private bool isKick;
-    private Transform panelTranform;
+    private EventTrigger PanelTrigger;
+    private PowerBarManager barManager;
 
     public event Action<float> KickEvent;
     public event Action RestartEvent;
 
-    private void Start()
-    {
-        panelTranform = PanelGameObj.GetComponent<RectTransform>();
-    }
 
     private void OnEnable()
     {
+        SetUpPowerBarManager();
         restartButton.onClick.AddListener(Restart);
         SetUpEventTrigger();
+    }
+
+    private void SetUpPowerBarManager()
+    {
+        barManager = GetComponent<PowerBarManager>();
+        barManager.KickEvent += BarManager_KickEvent;
+    }
+
+    private void BarManager_KickEvent(float obj)
+    {
+        KickEvent.Invoke(obj);
     }
 
     private void SetUpEventTrigger()
@@ -44,12 +47,12 @@ public class UIManager : MonoBehaviour
 
         EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
         pointerDownEntry.eventID = EventTriggerType.PointerDown;
-        pointerDownEntry.callback.AddListener((data) => { StartKick((PointerEventData)data); });
+        pointerDownEntry.callback.AddListener((data) => { barManager.StartKick((PointerEventData)data); });
         PanelTrigger.triggers.Add(pointerDownEntry);
 
         EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
         pointerUpEntry.eventID = EventTriggerType.PointerUp;
-        pointerUpEntry.callback.AddListener((data) => { Kick((PointerEventData)data); });
+        pointerUpEntry.callback.AddListener((data) => { barManager.Kick((PointerEventData)data); });
         PanelTrigger.triggers.Add(pointerUpEntry);
     }
 
@@ -83,63 +86,30 @@ public class UIManager : MonoBehaviour
         restartButton.gameObject.SetActive(true);
     }
 
-    public void Kick(PointerEventData pointerEventData)
+    public void EndPowerBarAction()
     {
-        KickEvent?.Invoke(powerBarImage.fillAmount);
-        StopCoroutine(powerBarCorotina);
-        powerBarImage.gameObject.SetActive(false);
+        DisableEventTrigger();
     }
 
-    public void AddBallCounter(BallColorType color, int count)
-    {
-        //if (color == BallColorType.Red)
-        //{
-        //    redText.text = count.ToString();
-        //}
-        //if (color == BallColorType.Green)
-        //{
-        //    greenText.text = count.ToString();
-        //}
-        //if (color == BallColorType.Blue)
-        //{
-        //    blueText.text = count.ToString();
-        //}
-    }
 
-    public void StartKick(PointerEventData pointerEventData)
-    {
-        isKick = true;
-        powerBarCorotina = StartCoroutine(PowerBarCouratine());
-    }
 
-    private IEnumerator PowerBarCouratine()
-    {
-        powerBarImage.gameObject.SetActive(true);
-        powerBarImage.fillAmount = 0;
-        bool increase = true;
-        while (isKick)
-        {
-            yield return new WaitForSeconds(timeToChangePowerBar);
+    //public void AddBallCounter(BallColorType color, int count)
+    //{
+    //    [SerializeField] private Text redText;
+    //    [SerializeField] private Text greenText;
+    //    [SerializeField] private Text blueText;
 
-            if (powerBarImage.fillAmount > 0.95)
-            {
-                increase = false;
-            }
-            else if (powerBarImage.fillAmount < 0.15f)
-            {
-                increase = true;
-            }
-
-            if (increase)
-            {
-                powerBarImage.fillAmount += 0.1f;
-            }
-            else
-            {
-                powerBarImage.fillAmount -= 0.1f;
-            }
-
-        }
-
-    }
+    //    if (color == BallColorType.Red)
+    //    {
+    //        redText.text = count.ToString();
+    //    }
+    //    if (color == BallColorType.Green)
+    //    {
+    //        greenText.text = count.ToString();
+    //    }
+    //    if (color == BallColorType.Blue)
+    //    {
+    //        blueText.text = count.ToString();
+    //    }
+    //}
 }

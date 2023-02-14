@@ -16,7 +16,9 @@ public class UIManager : MonoBehaviour
     private EventTrigger PanelTrigger;
     private PowerBarManager barManager;
 
+    public event Action CancelKickEvent;
     public event Action<float> KickEvent;
+    public event Action StartKickEvent;
     public event Action RestartEvent;
 
 
@@ -31,11 +33,23 @@ public class UIManager : MonoBehaviour
     {
         barManager = GetComponent<PowerBarManager>();
         barManager.KickEvent += BarManager_KickEvent;
+        barManager.StartKickEvent += BarManager_StartKickEvent;
+        barManager.CancelKickEvent += BarManager_CancelKickEvent;
+    }
+
+    private void BarManager_CancelKickEvent()
+    {
+        CancelKickEvent?.Invoke();
+    }
+
+    private void BarManager_StartKickEvent()
+    {
+        StartKickEvent?.Invoke();
     }
 
     private void BarManager_KickEvent(float obj)
     {
-        KickEvent.Invoke(obj);
+        KickEvent?.Invoke(obj);
     }
 
     private void SetUpEventTrigger()
@@ -48,6 +62,11 @@ public class UIManager : MonoBehaviour
         EventTrigger.Entry pointerDownEntry = new EventTrigger.Entry();
         pointerDownEntry.eventID = EventTriggerType.PointerDown;
         pointerDownEntry.callback.AddListener((data) => { barManager.StartKick((PointerEventData)data); });
+        PanelTrigger.triggers.Add(pointerDownEntry);
+
+        EventTrigger.Entry pointerOnDragEntry = new EventTrigger.Entry();
+        pointerDownEntry.eventID = EventTriggerType.Drag;
+        pointerDownEntry.callback.AddListener((data) => { barManager.OnKick((PointerEventData)data); });
         PanelTrigger.triggers.Add(pointerDownEntry);
 
         EventTrigger.Entry pointerUpEntry = new EventTrigger.Entry();
@@ -65,6 +84,9 @@ public class UIManager : MonoBehaviour
     {
         restartButton.onClick.RemoveListener(Restart);
         DisableEventTrigger();
+        barManager.KickEvent -= BarManager_KickEvent;
+        barManager.StartKickEvent -= BarManager_StartKickEvent;
+        barManager.CancelKickEvent -= BarManager_CancelKickEvent;
     }
 
     public void Restart()

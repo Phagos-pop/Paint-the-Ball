@@ -11,52 +11,102 @@ public class PowerBarManager : MonoBehaviour
     [SerializeField] private float timeToChangePowerBar;
 
     public event Action<float> KickEvent;
+    public event Action StartKickEvent;
+    public event Action CancelKickEvent;
 
-    private Coroutine powerBarCorotina;
+    //private Coroutine powerBarCorotina;
     private bool isKick;
+    //private Camera mainCamera;
+    float FirstClickPos;
+    //Vector2 DragClickPos;
+
+    public void Start()
+    {
+        //mainCamera = Camera.main;
+    }
 
     public void StartKick(PointerEventData pointerEventData)
     {
+        if (isKick)
+        {
+            return;
+        }
+        StartKickEvent?.Invoke();
+        FirstClickPos = Input.mousePosition.y;
         isKick = true;
-        powerBarCorotina = StartCoroutine(PowerBarCouratine());
+        powerBarImage.gameObject.SetActive(true);
+        powerBarImage.fillAmount = 0;
+        //powerBarCorotina = StartCoroutine(PowerBarCouratine());
+    }
+
+    public void OnKick(PointerEventData pointerEventData)
+    {
+        float Mag = (Math.Abs(FirstClickPos - Input.mousePosition.y)/Screen.height) * 2;
+        if (Mag < 0.2)
+        {
+            powerBarImage.gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            powerBarImage.gameObject.SetActive(true);
+        }
+        powerBarImage.fillAmount = Mag;
+        //Debug.Log(powerBarImage.fillAmount + "  " + Mag + "  " + FirstClickPos + "   " + mainCamera.ScreenToWorldPoint(Input.mousePosition));
     }
 
     public void Kick(PointerEventData pointerEventData)
     {
-        KickEvent?.Invoke(powerBarImage.fillAmount);
-        StopCoroutine(powerBarCorotina);
+        isKick = false;
+        if (powerBarImage.fillAmount > 0.3)
+        {
+            KickEvent?.Invoke(powerBarImage.fillAmount);
+        }
+        else
+        {
+            CancelKickEvent?.Invoke();
+        }
+        //StopCoroutine(powerBarCorotina);
         powerBarImage.gameObject.SetActive(false);
     }
 
-    private IEnumerator PowerBarCouratine()
-    {
-        powerBarImage.gameObject.SetActive(true);
-        powerBarImage.fillAmount = 0;
-        bool increase = true;
-        while (isKick)
-        {
-            yield return new WaitForSeconds(timeToChangePowerBar);
 
-            if (powerBarImage.fillAmount > 0.95)
-            {
-                increase = false;
-            }
-            else if (powerBarImage.fillAmount < 0.15f)
-            {
-                increase = true;
-            }
 
-            if (increase)
-            {
-                powerBarImage.fillAmount += 0.1f;
-            }
-            else
-            {
-                powerBarImage.fillAmount -= 0.1f;
-            }
+    //private IEnumerator PowerBarCouratine()
+    //{
+    //    powerBarImage.gameObject.SetActive(true);
+    //    powerBarImage.fillAmount = 0;
 
-        }
+    //    while (true)
+    //    {
 
-    }
+    //        yield return new WaitForSeconds(timeToChangePowerBar);
+    //    }
+    //    bool increase = true;
+    //    while (isKick)
+    //    {
+    //        yield return new WaitForSeconds(timeToChangePowerBar);
+
+    //        if (powerBarImage.fillAmount > 0.95)
+    //        {
+    //            increase = false;
+    //        }
+    //        else if (powerBarImage.fillAmount < 0.15f)
+    //        {
+    //            increase = true;
+    //        }
+
+    //        if (increase)
+    //        {
+    //            powerBarImage.fillAmount += 0.1f;
+    //        }
+    //        else
+    //        {
+    //            powerBarImage.fillAmount -= 0.1f;
+    //        }
+
+    //    }
+
+    //}
 
 }

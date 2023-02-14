@@ -14,10 +14,22 @@ public class MainManager : MonoBehaviour
     {
         uIManager.RestartEvent += UIManager_RestartEvent;
         uIManager.KickEvent += UIManager_KickEvent;
+        uIManager.StartKickEvent += UIManager_StartKickEvent;
+        uIManager.CancelKickEvent += UIManager_CancelKickEvent;
         inputManager.ClickEvent += InputManager_ClickEvent;
         ballCounter.BallDeadEvent += BallCounter_BallDeadEvent;
         mainBall.DeathEvent += MainBall_DeathEvent;
         starCounter.SetStarCountEvent += StarCounter_SetStarCountEvent;
+    }
+
+    private void UIManager_CancelKickEvent()
+    {
+        inputManager.SetCameraRotateBehevior();
+    }
+
+    private void UIManager_StartKickEvent()
+    {
+        //inputManager.SetCameraStaticBehevior();
     }
 
     private void OnDisable()
@@ -25,6 +37,8 @@ public class MainManager : MonoBehaviour
         uIManager.RestartEvent -= UIManager_RestartEvent;
         uIManager.KickEvent -= UIManager_KickEvent;
         inputManager.ClickEvent -= InputManager_ClickEvent;
+        uIManager.StartKickEvent -= UIManager_StartKickEvent;
+        uIManager.CancelKickEvent -= UIManager_CancelKickEvent;
         ballCounter.BallDeadEvent -= BallCounter_BallDeadEvent;
         if (mainBall != null)
             mainBall.DeathEvent -= MainBall_DeathEvent;
@@ -64,5 +78,7 @@ public class MainManager : MonoBehaviour
     {
         if (mainBall != null)
             mainBall.KickBall(kickMultiplier);
+
+        inputManager.SetCameraRotateBehevior();
     }
 }

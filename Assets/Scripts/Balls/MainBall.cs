@@ -19,6 +19,7 @@ public class MainBall : Ball
         Init();
         _rb = this.GetComponent<Rigidbody>();
         mainCamera = Camera.main;
+        
     }
 
     private void Update()

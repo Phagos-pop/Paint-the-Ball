@@ -57,6 +57,7 @@ public class InputManager : MonoBehaviour
 
         this.beheviorMap[typeof(CameraRotateBehevior)] = new CameraRotateBehevior();
         this.beheviorMap[typeof(CameraStaticBehevior)] = new CameraStaticBehevior();
+        this.beheviorMap[typeof(CameraLowRotateBehevior)] = new CameraLowRotateBehevior();
     }
 
     private void SetBehevior(ICameraBehavior newCameraBehivior)
@@ -78,6 +79,12 @@ public class InputManager : MonoBehaviour
     public void SetCameraRotateBehevior()
     {
         var behevior = this.GetBehivior<CameraRotateBehevior>();
+        this.SetBehevior(behevior);
+    }
+
+    public void SetCameraLowRotateBehevior()
+    {
+        var behevior = this.GetBehivior<CameraLowRotateBehevior>();
         this.SetBehevior(behevior);
     }
 

@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+
+class CameraLowRotateBehevior : ICameraBehavior
+{
+    CameraSettings currentCameraSettings;
+    private Camera mainCamera;
+    private Vector3 offset;
+    private Transform target;
+    private float X;
+
+    public void Enter(CameraSettings cameraSettings, Transform target)
+    {
+        this.target = target;
+        mainCamera = Camera.main;
+        currentCameraSettings = cameraSettings;
+        offset = new Vector3(offset.x, offset.y, -currentCameraSettings.zoom);
+        mainCamera.transform.position = target.position + offset;
+    }
+
+    public void Exit()
+    {
+
+    }
+
+    public void Update()
+    {
+        if (target == null)
+        {
+            return;
+        }
+#if UNITY_EDITOR
+        if (Input.GetMouseButton(0))
+        {
+            X = mainCamera.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * currentCameraSettings.sensitivity / 3;
+            mainCamera.transform.localEulerAngles = new Vector3(currentCameraSettings.xEulerAngles, X, 0f);
+            mainCamera.transform.position = mainCamera.transform.localRotation * offset + target.position;
+            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, target.position.y + currentCameraSettings.up, mainCamera.transform.position.z);
+        }
+        else
+        {
+            X = mainCamera.transform.localEulerAngles.y;
+            mainCamera.transform.localEulerAngles = new Vector3(currentCameraSettings.xEulerAngles, X, 0f);
+            mainCamera.transform.position = mainCamera.transform.localRotation * offset + target.position;
+            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, target.position.y + currentCameraSettings.up, mainCamera.transform.position.z);
+        }
+#else
+            X = mainCamera.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * currentCameraSettings.sensitivity / 3;
+            mainCamera.transform.localEulerAngles = new Vector3(currentCameraSettings.xEulerAngles, X, 0f);
+            mainCamera.transform.position = mainCamera.transform.localRotation * offset + target.position;
+            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, target.position.y + currentCameraSettings.up, mainCamera.transform.position.z);
+#endif
+    }
+}
+

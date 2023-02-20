@@ -29,7 +29,7 @@ public class MainManager : MonoBehaviour
 
     private void UIManager_StartKickEvent()
     {
-        //inputManager.SetCameraStaticBehevior();
+        inputManager.SetCameraLowRotateBehevior();
     }
 
     private void OnDisable()

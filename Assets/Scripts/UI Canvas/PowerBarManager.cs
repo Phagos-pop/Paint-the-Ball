@@ -9,6 +9,7 @@ public class PowerBarManager : MonoBehaviour
 {
     [SerializeField] private Image powerBarImage;
     [SerializeField] private float timeToChangePowerBar;
+    [SerializeField] private float multiplaer = 2.5f;
 
     public event Action<float> KickEvent;
     public event Action StartKickEvent;
@@ -41,7 +42,7 @@ public class PowerBarManager : MonoBehaviour
 
     public void OnKick(PointerEventData pointerEventData)
     {
-        float Mag = (Math.Abs(FirstClickPos - Input.mousePosition.y)/Screen.height) * 2;
+        float Mag = (Math.Abs(FirstClickPos - Input.mousePosition.y)/Screen.height) * multiplaer;
         if (Mag < 0.2)
         {
             powerBarImage.gameObject.SetActive(false);
@@ -58,9 +59,11 @@ public class PowerBarManager : MonoBehaviour
     public void Kick(PointerEventData pointerEventData)
     {
         isKick = false;
-        if (powerBarImage.fillAmount > 0.3)
+        if (powerBarImage.fillAmount > 0.2)
         {
             KickEvent?.Invoke(powerBarImage.fillAmount);
+            //Debug.Log($"fillAmount {powerBarImage.fillAmount}");
+            powerBarImage.fillAmount = 0;
         }
         else
         {

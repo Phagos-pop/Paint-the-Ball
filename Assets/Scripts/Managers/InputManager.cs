@@ -29,14 +29,18 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        if (currentCameraBehivior != null)
-        {
-            currentCameraBehivior.Update();
-        }
-
+       
         if (Input.GetMouseButtonDown(0))
         {
             ClickEvent?.Invoke();
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (currentCameraBehivior != null)
+        {
+            currentCameraBehivior.Update();
         }
     }
 

@@ -113,8 +113,6 @@ public class UIManager : MonoBehaviour
         DisableEventTrigger();
     }
 
-
-
     //public void AddBallCounter(BallColorType color, int count)
     //{
     //    [SerializeField] private Text redText;
